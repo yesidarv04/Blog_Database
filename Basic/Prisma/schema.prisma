@@ -1,0 +1,10 @@
+// Define el generador de cliente para Prisma. Esto es para interactuar con la base de datos
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configura la fuente de datos para la base de datos. Se especifica sql como proveedor de la base de datos
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
