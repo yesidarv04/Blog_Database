@@ -1,0 +1,8 @@
+#Dependencies 
+node_modules
+
+#Prisma migrations
+migrations
+
+# local env  
+.env
