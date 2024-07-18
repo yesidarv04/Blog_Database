@@ -1,29 +1,29 @@
 // schema.prisma
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model Post {
-  id          String   @id @default(uuid())
-  title       String
-  description String 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  authorName  String
-  content     Json
-  isActive    Boolean  @default(true)
-  images      Image[]
+    id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    title       String
+    description String
+    createdAt   DateTime @default(dbgenerated("now()")) @db.Timestamptz
+    updatedAt   DateTime @default(dbgenerated("now()")) @db.Timestamptz
+    authorName  String
+    content     Json
+    isActive    Boolean  @default(true)
+    images      Image[]
 }
 
 model Image {
-  id     String @id @default(uuid())
-  url    String
-  postId String
-  post   Post   @relation(fields: [postId], references: [id])
+    id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    url    String
+    postId String @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    post   Post   @relation(fields: [postId], references: [id])
 }
